@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="waveformArray">
+        <item>Sine</item>
+        <item>Triangle</item>
+        <item>Sawtooth</item>
+        <item>Square</item>
+    </string-array>
+    <string-array name="waveformValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="intervalArray">
+        <item>Unison</item>
+        <item>Minor 2nd</item>
+        <item>Major 2nd</item>
+        <item>Minor 3rd</item>
+        <item>Major 3rd</item>
+        <item>Perfect 4th</item>
+        <item>Augmented 4th/Tritone</item>
+        <item>Perfect 5th</item>
+        <item>Minor 6th</item>
+        <item>Major 6th</item>
+        <item>Minor 7th</item>
+        <item>Major 7th</item>
+        <item>Octave</item>
+        <item>Minor 9th</item>
+        <item>Major 9th</item>
+        <item>Minor 10th</item>
+    </string-array>
+    <string-array name="intervalValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+
+</resources>

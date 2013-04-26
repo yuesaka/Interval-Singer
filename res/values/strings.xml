@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IntervalSinger</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="question_interval">&lt;none&gt;</string>
+    <string name="time_left">5</string>
+    <string name="input_pitch">Touch to Record</string>
+    <string name="play_note">Play Note</string>
+    <string name="next_question">Next Question</string>
+    <string name="recording">Recording</string>
+    <string name="pitch">Hz</string>
+    <string name="play_answer">Play Answer</string>
+
+</resources>
