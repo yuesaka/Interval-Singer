@@ -284,8 +284,7 @@ public class MainActivity extends Activity {
 		baseNote = Note.getRandom(Note.A3, Note.A5);// for now,
 		// Log.v(TAG, "generate_question -> base note: " +
 		// NOTE_NAMES[baseNote.getValue()])
-		int interval = rand.nextInt(1 + max_interval);// for now, 0(unison) to
-														// 12(octave)
+		int interval = rand.nextInt(1 + max_interval);
 		int direction = rand.nextInt(2);// 0 = up, 1 = down;
 		answerInterval = interval;
 		answerDirection = direction;
@@ -312,7 +311,6 @@ public class MainActivity extends Activity {
 		mFreqText.setText("-");
 		mPlayNote.setEnabled(true);
 		mNextQuestion.setEnabled(false);
-		mRecordToggle.setEnabled(true);
-		
+		mRecordToggle.setEnabled(true);	
 	}
 }

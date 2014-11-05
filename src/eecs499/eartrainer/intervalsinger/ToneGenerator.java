@@ -1,8 +1,5 @@
 package eecs499.eartrainer.intervalsinger;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -10,7 +7,6 @@ import android.util.Log;
 
 public class ToneGenerator {
 	private static final String TAG = "ToneGenerator";
-	private ScheduledExecutorService mExecutor;
 	
 	public static final int TYPE_SINE = 0;
 	public static final int TYPE_TRIANGLE = 1;
@@ -27,7 +23,6 @@ public class ToneGenerator {
 	private double freqOfTone; // in hz
 	private byte generatedSnd[];
 
-
 	public ToneGenerator() {
 		audioTrack = new AudioTrack(
 				AudioManager.STREAM_MUSIC, sampleRate,
@@ -38,8 +33,6 @@ public class ToneGenerator {
 		Log.v(TAG, "setWaveType->setting wave_type to:" + TYPE_SINE);
 		wave_type = TYPE_SINE; // sine wave by default
 		audioTrack.play();
-		// mExecutor = Executors.newSingleThreadScheduledExecutor();
-		// mExecutor = Executors.newScheduledThreadPool(3);
 	}
 
 	public void setWaveType(int wave_type_) {
@@ -91,8 +84,6 @@ public class ToneGenerator {
 			if (phase > (2 * Math.PI)) {
 				phase = phase - (2 * Math.PI);
 			}
-			
-
 		}
 
 		// add attack and decay
@@ -135,15 +126,8 @@ public class ToneGenerator {
 	}
 
 	private void playSound() {
-
 		try {
-			
-			Log.v(TAG, "before write");
 			audioTrack.write(generatedSnd, 0, generatedSnd.length);
-			Log.v(TAG, "after write");
-			Log.v(TAG, "before play");
-			
-			Log.v(TAG, "after play");
 		} catch (IllegalStateException e) {
 			Log.v(TAG, "CAUGHT AN ERROR DURING PLAYING TONE");
 			e.printStackTrace();
