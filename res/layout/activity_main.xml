@@ -1,152 +1,107 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mainActivity"
     tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/question_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/question_interval"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/play_note_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/record_toggle"
-        android:layout_alignRight="@+id/record_toggle"
-        android:layout_alignTop="@+id/question_interval"
-        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:onClick="play_note"
         android:text="@string/play_note" />
 
     <ToggleButton
         android:id="@+id/record_toggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/generate_question_button"
-        android:layout_alignRight="@+id/generate_question_button"
-        android:layout_below="@+id/play_note_button"
-        android:layout_marginTop="19dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:textOff="@string/input_pitch"
         android:textOn="@string/recording" />
 
     <Button
+        android:id="@+id/play_answer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:onClick="play_answer"
+        android:text="@string/play_answer" />
+
+    <Button
         android:id="@+id/generate_question_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/record_toggle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:onClick="generate_question"
         android:text="@string/next_question" />
 
-    <Button
-        android:id="@+id/play_answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/generate_question_button"
-        android:layout_alignRight="@+id/generate_question_button"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="80dp"
-        android:onClick="play_answer"
-        android:text="@string/play_answer"
-        android:visibility="invisible" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/answer_pitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/answer_pitch_label"
-        android:layout_alignBottom="@+id/answer_pitch_label"
-        android:layout_toRightOf="@id/answer_pitch_label"
-        android:text="-"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/answer_pitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/freq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/generate_question_button"
-        android:layout_toRightOf="@+id/user_pitch_label"
-        android:text="-"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/freq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/num_corrects"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/corrects"
-        android:layout_alignBottom="@+id/corrects"
-        android:layout_alignParentRight="true"
-        android:layout_toLeftOf="@+id/play_answer"
-        android:layout_toRightOf="@+id/corrects"
-        android:text="0"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <!--
+	    <TextView
+	        android:id="@+id/countdown"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:text="@string/time_left"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textSize="70sp" />
+        -->
 
-    <TextView
-        android:id="@+id/answer_pitch_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/generate_question_button"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@+id/freq"
-        android:text="Answer Pitch:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/user_pitch_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/answer_pitch_label"
-        android:layout_alignBottom="@+id/answer_pitch"
-        android:layout_below="@id/generate_question_button"
-        android:layout_marginLeft="35dp"
-        android:text="Your Pitch:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/incorrects"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/num_corrects"
-        android:layout_alignLeft="@id/answer_pitch_label"
-        android:layout_alignParentBottom="false"
-        android:layout_toRightOf="@id/num_corrects"
-        android:text="Incorrects"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/num_incorrects"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/incorrects"
-        android:layout_toRightOf="@id/incorrects"
-        android:text="0"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/countdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/time_left"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="70sp" />
-
-    <TextView
-        android:id="@+id/question_interval"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/play_answer"
-        android:layout_centerHorizontal="true"
-        android:text="@string/question_interval"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/corrects"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/user_pitch_label"
-        android:layout_below="@id/user_pitch_label"
-        android:text="Corrects"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-</RelativeLayout>
+</LinearLayout>

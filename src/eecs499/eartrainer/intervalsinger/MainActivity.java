@@ -36,13 +36,14 @@ public class MainActivity extends Activity {
 	private int answerInterval;
 	private int answerDirection;
 	private int numCorrects, numIncorrects;
+	private float percentage = 1;
 
 	// UI
 	private TextView mFreqText;
 	private TextView mAnswerText;
 	private TextView mIntervalText;
-	private TextView mCountDown;
-	private TextView mNumCorrects, mNumIncorrects;
+	private TextView mPercentage;
+	//private TextView mCountDown;
 	private Button mPlayNote;
 	private Button mPlayAnswer;
 	private Button mNextQuestion;
@@ -53,7 +54,7 @@ public class MainActivity extends Activity {
 	private HashMap<Integer, Integer> mPossibleAnswers = new HashMap<Integer, Integer>();
 	private Integer mUserAnswer;
 
-	private CountDownTimer mTimeLimitTimer;
+	//private CountDownTimer mTimeLimitTimer;
 	private boolean timerRunning;
 
 	private static ToneGenerator mToneGenerator;
@@ -94,7 +95,7 @@ public class MainActivity extends Activity {
 		wavetype = Integer.parseInt(SP.getString("waveform", "0"));
 		max_interval = Integer.parseInt(SP.getString("interval", "12"));
 		mToneGenerator.setWaveType(wavetype);
-		mCountDown.setText("" + timelimit);
+		//mCountDown.setText("" + timelimit);
 	}
 
 	@Override
@@ -121,9 +122,8 @@ public class MainActivity extends Activity {
 		mIntervalText = (TextView) findViewById(R.id.question_interval);
 		mPlayNote = (Button) findViewById(R.id.play_note_button);
 		mPlayAnswer = (Button) findViewById(R.id.play_answer);
-		mCountDown = (TextView) findViewById(R.id.countdown);
-		mNumCorrects  = (TextView) findViewById(R.id.num_corrects);
-		mNumIncorrects =(TextView) findViewById(R.id.num_incorrects);
+		mPercentage = (TextView) findViewById(R.id.percentage);
+		//mCountDown = (TextView) findViewById(R.id.countdown);
 		mNextQuestion = (Button) findViewById(R.id.generate_question_button);
 		mToneGenerator = new ToneGenerator();
 
@@ -137,7 +137,7 @@ public class MainActivity extends Activity {
 		wavetype = Integer.parseInt(SP.getString("waveform", "0"));
 		max_interval = Integer.parseInt(SP.getString("interval", "12"));
 		mToneGenerator.setWaveType(wavetype);
-		mCountDown.setText("" + timelimit);
+		//mCountDown.setText("" + timelimit);
 
 		numCorrects = 0;
 		numIncorrects = 0;
@@ -172,27 +172,26 @@ public class MainActivity extends Activity {
 								Toast.makeText(getApplicationContext(),
 										"Correct!", Toast.LENGTH_SHORT).show();
 								numCorrects++;
-								mNumCorrects.setText(Integer.toString(numCorrects));
+								calculatePercentage();
 							} else {
 								Toast.makeText(getApplicationContext(),
 										"Wrong!", Toast.LENGTH_SHORT).show();
 								numIncorrects++;
-								mNumIncorrects.setText(Integer.toString(numIncorrects));
-
+								calculatePercentage();
 							}
-							mFreqText.setText(NOTE_NAMES[mUserAnswer]);
-							mAnswerText.setText(NOTE_NAMES[answerNote
+							mFreqText.setText("Your Answer:" + NOTE_NAMES[mUserAnswer]);
+							mAnswerText.setText("Correct Answer:" + NOTE_NAMES[answerNote
 									.getNoteNameValue()]);
-							mPlayAnswer.setVisibility(View.VISIBLE);
+							mPlayAnswer.setEnabled(true);
 
 							// Toast.makeText(getApplicationContext(),
 							// "Answer:" + NOTE_NAMES[mUserAnswer],
 							// Toast.LENGTH_SHORT).show();
 							mUserAnswer = null;
 							mPossibleAnswers.clear();
-							mTimeLimitTimer.cancel();
+							//mTimeLimitTimer.cancel();
 							mRecordToggle.setEnabled(false);
-							mNextQuestion.setEnabled(true);
+							//mNextQuestion.setEnabled(true);
 
 						}
 					};
@@ -228,26 +227,26 @@ public class MainActivity extends Activity {
 	public void play_note(View Button) {
 		mPlayNote.setEnabled(false);
 		mToneGenerator.playTone(baseNote.getFrequency(), 1);
-		mTimeLimitTimer = new CountDownTimer(timelimit * 1000, 100) {
-
-			public void onTick(long millisUntilFinished) {
-				mCountDown.setText("" + millisUntilFinished / 1000);
-			}
-
-			public void onFinish() {
-				// if the user has not started recording the note, force start
-				if (mRecordToggle.isEnabled()) {
-					mRecordToggle.performClick();
-				}
-			}
-		};
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			public void run() {
-				timerRunning = true;
-				mTimeLimitTimer.start();
-			}
-		}, 1000);
+//		mTimeLimitTimer = new CountDownTimer(timelimit * 1000, 100) {
+//
+//			public void onTick(long millisUntilFinished) {
+//				mCountDown.setText("" + millisUntilFinished / 1000);
+//			}
+//
+//			public void onFinish() {
+//				// if the user has not started recording the note, force start
+//				if (mRecordToggle.isEnabled()) {
+//					mRecordToggle.performClick();
+//				}
+//			}
+//		};
+//		Handler handler = new Handler();
+//		handler.postDelayed(new Runnable() {
+//			public void run() {
+//				timerRunning = true;
+//				mTimeLimitTimer.start();
+//			}
+//		}, 1000);
 
 		// starting
 		// notes are
@@ -305,12 +304,21 @@ public class MainActivity extends Activity {
 				+ (direction == 0 ? "Up" : "Down") + " from "
 				+ NOTE_NAMES[baseNote.getNoteNameValue()]);
 		mPlayNote.setText("Play " + NOTE_NAMES[baseNote.getNoteNameValue()]);
-		mCountDown.setText("" + timelimit);
-		mPlayAnswer.setVisibility(View.INVISIBLE);
-		mAnswerText.setText("-");
-		mFreqText.setText("-");
+		//mCountDown.setText("" + timelimit);
+		mPlayAnswer.setEnabled(false);
 		mPlayNote.setEnabled(true);
-		mNextQuestion.setEnabled(false);
-		mRecordToggle.setEnabled(true);	
+		//mNextQuestion.setEnabled(false);
+		mRecordToggle.setEnabled(true);
+		mFreqText.setText("Your Answer:");
+		mAnswerText.setText("Correct Answer:");
+		calculatePercentage();
+		
+	}
+
+	private void calculatePercentage() {
+		int numQuestions = numCorrects + numIncorrects;
+		percentage =  numQuestions != 0 ? ((float)numCorrects / numQuestions) : 1;
+		mPercentage.setText(Float.toString(percentage * 100) + "%" + 
+				" (" + Integer.toString(numCorrects) + " out of " + Integer.toString(numQuestions) + ")");
 	}
 }
